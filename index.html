@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigment18B</title>
+    <style>
+ html,
+body {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	font-family: sans-serif;
+	font-weight: 100;
+}
+
+table {
+	width: 800px;
+	border-collapse: collapse;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+th, td {
+	padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+	color: #fff;
+}
+
+th {
+	text-align: left;
+}
+tr {
+    border-bottom: 1px solid lightgreen;
+}
+tr:last-of-type {
+    border-bottom: none;
+}
+
+    </style>
+</head>
+<body>
+
+  <script>
+    fetch("https://party-wedding.glitch.me/v1/wedding")
+      .then(res => res.json())
+    .then(data => {
+        const table = document.createElement("table")
+        const tr = document.createElement("tr")
+        tr.innerHTML = `
+        <th>Dalyvis</th><th>PlusOne</th><th>Attending</th>`
+        document.body.appendChild(table)
+        table.appendChild(tr)
+        data.forEach(element => {
+            const table = document.querySelector("table")
+            const row = table.insertRow()
+            let  plusOne = element.plusOne
+            let  attending = element.attending
+            if(plusOne == true) {plusOne = "+"} else {plusOne = "-"}
+            if(attending == true) {attending = "+"} else {attending = "-"}
+            row.innerHTML = `<td>${element.name}</td><td>${plusOne}</td><td>${attending}</td>`
+        });
+    }).catch(e => console.log(e.message))
+  </script>  
+</body>
+</html>
